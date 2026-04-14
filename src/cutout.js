@@ -67,7 +67,7 @@ export function initCutout() {
   let assembledX = 0, assembledY = 0;
 
   const img = new Image();
-  img.src = '/cutout.png';
+  img.src = `${import.meta.env.BASE_URL}cutout.png`;
 
   function buildFragments() {
     if (!img.naturalWidth) return;
