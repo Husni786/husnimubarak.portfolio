@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/husnimubarak.portfolio/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Husni Mubarak — Full-Stack Developer</title>
+    <!-- PreText CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/pretext@latest/dist/pretext.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Italiana&family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/husnimubarak.portfolio/assets/index-CJuTTy11.js"></script>
+    <link rel="stylesheet" crossorigin href="/husnimubarak.portfolio/assets/index-iQmhktMl.css">
+  </head>
+  <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress-line"></div>
+
+    <!-- Background Layers -->
+    <canvas id="webgl-background" class="bg-layer"></canvas>
+    <canvas id="particle-field" class="bg-layer"></canvas>
+    <div class="vignette-overlay bg-layer"></div>
+
+    <!-- Custom Cursor (canvas-only magnetic rings) -->
+    <div class="cursor-layer">
+      <div class="cursor-aura" style="display:none;"></div>
+      <canvas id="cursor-orbit"></canvas>
+      <div class="cursor-core" style="display:none;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+      <!-- Hidden SVG: goo filter for liquid morphing effect -->
+      <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="nav-goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+            <feColorMatrix in="blur" mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="goo"/>
+            <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+          </filter>
+        </defs>
+      </svg>
+
+      <div class="nav-logo">
+        <svg viewBox="0 0 100 100" class="hm-monogram">
+          <path d="M20,20 L20,80 M20,50 L50,50 M50,20 L50,80 M65,80 L65,20 L80,50 L95,20 L95,80" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="square"></path>
+        </svg>
+      </div>
+      <!-- Mobile hamburger (hidden on desktop) -->
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <!-- Liquid glass sliding indicator — moved by JS -->
+        <span class="nav-indicator" aria-hidden="true"></span>
+        <a href="#hero">01/HOME</a>
+        <a href="#about">02/ABOUT</a>
+        <a href="#services">03/WORK</a>
+        <a href="#skills">04/SKILLS</a>
+        <a href="#contact">05/CONTACT</a>
+      </div>
+      <div class="nav-cta">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=husnimubarak534%40gmail.com&su=I'd%20love%20to%20work%20with%20you%20%E2%80%94%20%5BYour%20Business%20Name%5D&body=Hi%20Husni%2C%0A%0AI%20have%20a%20project%20I'd%20love%20to%20get%20your%20eyes%20on.%20Here's%20the%20short%20version%3A%0A%0AWhat%20I%20need%20built%3A%0A%5Be.g.%20An%20e-commerce%20store%20%2F%20a%20clinic%20website%20%2F%20a%20business%20landing%20page%5D%0A%0AWhat%20it's%20for%3A%0A%5BOne%20or%20two%20sentences%20about%20your%20business%20and%20what%20the%20site%20should%20do%20for%20you%5D%0A%0AAny%20sites%20you%20like%20the%20look%20of%3A%0A%5BURL%20or%20just%20describe%20the%20vibe%20%E2%80%94%20clean%2C%20bold%2C%20minimal%2C%20etc.%5D%0A%0AMust-have%20features%3A%0A%5Be.g.%20Contact%20form%2C%20online%20store%2C%20booking%20system%2C%20photo%20gallery%5D%0A%0AMy%20timeline%3A%0A%5Be.g.%20ASAP%20%2F%20within%20a%20month%20%2F%20flexible%5D%0A%0ABudget%20range%3A%0A%5B%20%5D%20%24500%20%E2%80%93%20%241%2C000%0A%5B%20%5D%20%241%2C000%20%E2%80%93%20%242%2C500%0A%5B%20%5D%20%242%2C500%20%E2%80%93%20%245%2C000%0A%5B%20%5D%20%245%2C000%2B%0A%5B%20%5D%20Open%20%E2%80%94%20let's%20talk%0A%0ABest%20way%20to%20reach%20me%3A%0APhone%20%2F%20WhatsApp%3A%20%5BYour%20Number%5D%0AEmail%3A%20%5BYour%20Email%5D%0ABest%20time%3A%20%5Be.g.%20Weekday%20afternoons%2C%20EST%5D%0A%0AI'm%20genuinely%20excited%20about%20this%20%E2%80%94%20hope%20we%20can%20make%20something%20great%20together.%20Looking%20forward%20to%20your%20reply!%0A%0A%E2%80%94%20%5BYour%20Name%5D%2C%20%5BBusiness%20Name%5D" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-decoration: none;">HIRE ME &rarr;</a>
+      </div>
+    </nav>
+
+    <!-- ── iOS 26-style Mobile Bottom Nav (mobile only) ─────────── -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Mobile navigation">
+      <!-- Sliding active pill indicator -->
+      <span class="mbn-indicator" id="mbn-indicator" aria-hidden="true"></span>
+      <a href="#hero"     class="mbn-item active" data-index="0" id="mbn-0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="#about"    class="mbn-item" data-index="1" id="mbn-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>About</span>
+      </a>
+      <a href="#services"  class="mbn-item" data-index="2" id="mbn-2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/><path d="M8 7V5a2 2 0 0 0-4 0v2"/></svg>
+        <span>Work</span>
+      </a>
+      <a href="#skills"   class="mbn-item" data-index="3" id="mbn-3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Skills</span>
+      </a>
+      <a href="#contact"  class="mbn-item" data-index="4" id="mbn-4">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Contact</span>
+      </a>
+    </nav>
+
+    <!-- Main Content wrapper for Lenis smooth scrolling -->
+    <main id="smooth-wrapper">
+      
+      <!-- HERO SCENE -->
+      <section id="hero" class="scene-section hero-section">
+        <div class="hero-content">
+          <div class="hero-top-meta">
+            <span class="mono-label tracking-wide">01 // FULL-STACK DEVELOPER</span>
+          </div>
+          <h1 class="hero-title" id="hero-name">HUSNI<br><span class="outlined-text">MUBARAK</span></h1>
+          <h2 class="hero-subtitle" id="hero-role">Full-Stack Developer &amp; Digital Solutions Architect</h2>
+          
+          <div class="hero-bottom-meta">
+            <div class="location-tag">Assam, India &nbsp;|&nbsp; Available for Strategic Projects</div>
+            <div class="hero-stats">
+              <span class="stat-badge">50+ Projects Delivered</span>
+              <span class="stat-badge">3+ Years Experience</span>
+              <span class="stat-badge">$500+ Monthly Recurring Revenue (MRR) Apps Developed</span>
+            </div>
+            <div class="hero-specialization">Specializing in Revenue-Generating Web Applications &amp; Website Development</div>
+            <div class="hero-ctas">
+              <button id="btn-view-work" class="btn btn-gradient">VIEW MY WORK &darr;</button>
+              <button class="btn btn-outline">LET'S TALK &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT SCENE & CUTOUT PIECES -->
+      <section id="about" class="scene-section about-section">
+        <div class="about-grid">
+          <!-- Canvas handles both Text and Cutout Fragmentation -->
+          <div class="about-canvas-wrapper">
+            <canvas id="cutout-canvas"></canvas>
+            
+            <div id="pretext-source" style="display: none;">
+              Meet Husni Mubarak—the developer who doesn't just build websites and apps; he builds revenue engines. Most developers build features. Husni builds outcomes. When a Silicon Valley software company discovered his Grocee Plus application, they recognized something rare: a developer who understands that code is only valuable when it generates revenue. They paid him $500 for the source code, then watched it generate $500 in monthly recurring revenue within weeks. This isn't luck. This is the result of understanding both technology and business psychology. What separates Husni from the typical developer is his approach to problem-solving. He doesn't ask "Can we build this?" He asks "How does this create value?" This mindset transforms every project into a strategic asset. Whether you need a website that converts visitors into paying customers, a mobile application with built-in monetization, or automation systems that eliminate repetitive work, Husni delivers solutions that align with your business objectives. His technical foundation spans full-stack web development, React Native mobile applications, Firebase and Supabase infrastructure, and modern automation platforms. But technical skills alone don't drive results. It's his ability to synthesize technology with user behavior, market dynamics, and business strategy that creates the difference between a functional application and a revenue-generating asset. When you work with Husni, you're not hiring a developer. You're partnering with someone who measures success by your growth. Your next competitive advantage is waiting to be built.
+            </div>
+
+            <!-- Wavy Violet Ribbon overlays bottom of portrait -->
+            <div class="ribbon-wrapper">
+              <canvas id="ribbon-canvas"></canvas>
+            </div>
+          </div>
+
+
+          <div class="about-left" style="text-align: center; padding: 3rem 4vw 2rem;">
+            <h2 id="about-headline" class="display-text" style="font-size: clamp(2rem, 5vw, 5rem);">Self-driven.<br>Precise. Business-focused.</h2>
+            <div class="about-stats-container" style="justify-content: center; flex-wrap: wrap;">
+              <div class="stat-box">
+                <div class="stat-number"><span class="counter" data-target="70" data-suffix="+">0+</span></div>
+                <div class="stat-label">Projects</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-number"><span class="counter" data-target="3" data-suffix="+">0+</span></div>
+                <div class="stat-label">Years Active</div>
+              </div>
+              <div class="stat-box stat-box--slot">
+                <div class="stat-number">
+                  <span class="stat-dollar">$</span>
+                  <div class="slot-drum" id="slot-mrr" aria-label="700 MRR Generated">
+                    <div class="slot-reel" id="slot-reel"></div>
+                  </div>
+                  <span class="stat-mrr-label"> MRR</span>
+                </div>
+                <div class="stat-label">Generated</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES SCENE -->
+      <section id="services" class="scene-section services-section">
+        <h2 class="ghost-heading">SERVICES</h2>
+        <div class="services-grid">
+
+          <!-- CARD 1: Website Development -->
+          <div class="service-card" style="--card-accent:#00f5a0;" data-service="web">
+            <div class="service-card-top">
+              <i data-lucide="code"></i>
+              <h3>Website Development</h3>
+              <p>From concept to launch — custom-built, conversion-focused, high-performance websites that actually grow your business.</p>
+              <div class="service-explore-wrap">
+                <button class="service-explore-btn" aria-expanded="false">EXPLORE &rarr;</button>
+              </div>
+            </div>
+            <div class="service-drawer" aria-hidden="true">
+              <div class="service-drawer-inner">
+                <div class="sd-items">
+                  <div class="sd-item"><span class="sd-dot"></span><span>Custom-coded — loads under 2s. No templates, no limits.</span></div>
+                  <div class="sd-item"><span class="sd-dot"></span><span>Conversion architecture — CTAs, trust signals & social proof built-in.</span></div>
+                  <div class="sd-item"><span class="sd-dot"></span><span>SEO-ready from day one — Google-friendly before you spend on ads.</span></div>
+                  <div class="sd-item"><span class="sd-dot"></span><span>Payment, WhatsApp & portal integrations available.</span></div>
+                </div>
+                <div class="sd-cta-row">
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=husnimubarak534%40gmail.com&su=Website%20Development%20Inquiry%20%E2%80%94%20%5BYour%20Business%20Name%5D&body=Hi%20Husni%2C%0A%0AI%20have%20a%20project%20I'd%20love%20to%20get%20your%20eyes%20on.%20Here's%20a%20quick%20overview%20of%20what%20I%20need%20for%20my%20website%3A%0A%0AWHAT%20I%20NEED%0A-----------%0A%E2%80%A2%20Custom-coded%20website%20%E2%80%94%20loads%20fast%2C%20no%20templates.%20%5Bmention%20your%20preferred%20look%20or%20feel%5D%0A%E2%80%A2%20Conversion-focused%20layout%20%E2%80%94%20CTAs%2C%20trust%20signals%20%26%20social%20proof.%20%5Bmention%20what%20action%20you%20want%20visitors%20to%20take%5D%0A%E2%80%A2%20SEO-ready%20structure%20%E2%80%94%20optimized%20for%20Google%20from%20day%20one.%20%5Bmention%20your%20target%20keywords%20or%20location%20if%20any%5D%0A%E2%80%A2%20Payment%20%26%20WhatsApp%20integration%20%E2%80%94%20for%20seamless%20contact%20and%20checkout.%20%5Bmention%20payment%20gateway%20preference%2C%20e.g.%20Stripe%2C%20PayPal%5D%0A%E2%80%A2%20Responsive%20design%20%E2%80%94%20looks%20perfect%20on%20mobile%2C%20tablet%2C%20and%20desktop.%20%5Bmention%20any%20device%20priority%5D%0A%E2%80%A2%20Contact%20%2F%20booking%20form%20%E2%80%94%20so%20clients%20can%20reach%20me%20or%20schedule%20appointments.%20%5Bmention%20form%20fields%20or%20booking%20tool%5D%0A%E2%80%A2%20Photo%20%2F%20product%20gallery%20%E2%80%94%20to%20showcase%20my%20work%2C%20menu%2C%20or%20catalog.%20%5Bmention%20number%20of%20items%20or%20categories%5D%0A%E2%80%A2%20Live%20chat%20or%20real-time%20features%20%E2%80%94%20e.g.%20live%20support%2C%20real-time%20updates%2C%20dashboard.%20%5Bmention%20if%20needed%5D%0A%E2%80%A2%20Blog%20or%20content%20section%20%E2%80%94%20to%20publish%20articles%2C%20news%2C%20or%20updates.%20%5Bmention%20topics%20or%20posting%20frequency%5D%0A%E2%80%A2%20Offline%20%2F%20PWA%20capability%20%E2%80%94%20so%20my%20site%20works%20even%20without%20internet.%20%5Bmention%20if%20needed%5D%0A%E2%80%A2%20Anything%20else%20I%20need%3A%20%5Badd%20your%20own%20features%2C%20integrations%2C%20or%20special%20requirements%20here%5D%0A%0A---%0AMy%20timeline%3A%20%5Be.g.%20ASAP%20%2F%20within%20a%20month%20%2F%20flexible%5D%0AMy%20budget%3A%20%5B%20%5D%20%24500%E2%80%93%241%2C000%20%20%5B%20%5D%20%241%2C000%E2%80%93%242%2C500%20%20%5B%20%5D%20%242%2C500%E2%80%93%245%2C000%20%20%5B%20%5D%20%245%2C000%2B%20%20%5B%20%5D%20Open%0A%0ALooking%20forward%20to%20your%20reply!%0A%0A%E2%80%94%20%5BYour%20Name%5D%2C%20%5BBusiness%20Name%5D%0A%5BPhone%20%2F%20WhatsApp%5D%20%C2%B7%20%5BEmail%5D%20%C2%B7%20%5BBest%20time%20to%20reach%20you%2C%20EST%5D" target="_blank" rel="noopener noreferrer" class="sd-cta-btn">Start My Website &rarr;</a>
+                  <span class="sd-note">⏱ 1–2 weeks</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 2: Mobile App Development -->
+          <div class="service-card" style="--card-accent:#ff3d6b;" data-service="mobile">
+            <div class="service-card-top">
+              <i data-lucide="smartphone"></i>
+              <h3>Mobile App Development</h3>
+              <p>React Native apps for iOS & Android — built to engage, retain users, and generate real monthly revenue.</p>
+              <div class="service-explore-wrap">
+                <button class="service-explore-btn" aria-expanded="false">EXPLORE &rarr;</button>
+              </div>
+            </div>
+            <div class="service-drawer" aria-hidden="true">
+              <div class="service-drawer-inner">
+                <div class="sd-items">
+                  <div class="sd-item"><span class="sd-dot"></span><span>One codebase, both platforms — no compromise on performance.</span></div>
+                  <div class="sd-item"><span class="sd-dot"></span><span>Firebase backend — real-time sync, push notifications, auth.</span></div>
+                  <div class="sd-item"><span class="sd-dot"></span><span>In-app monetization — subscriptions & payments from day one.</span></div>
+                  <div class="sd-item"><span class="sd-dot"></span><span class="sd-proof-inline">Grocee Plus — acquired by a Silicon Valley company. $500 MRR.</span></div>
+                </div>
+                <div class="sd-cta-row">
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=husnimubarak534%40gmail.com&su=Mobile%20App%20Development%20Inquiry%20%E2%80%94%20%5BYour%20Business%2FStartup%20Name%5D&body=Hi%20Husni%2C%0A%0AI've%20been%20looking%20for%20a%20developer%20who%20can%20build%20a%20real%2C%20revenue-generating%20mobile%20app%20%E2%80%94%20not%20just%20a%20pretty%20prototype.%20Your%20work%20caught%20my%20attention%20and%20I'd%20love%20to%20discuss%20my%20project%20with%20you.%0A%0A%2F%2F%20WHAT%20I%20NEED%0A--------------------------------------%0A%5Bx%5D%20One%20codebase%2C%20both%20platforms%20%E2%80%94%20iOS%20%26%20Android.%0A%20%20%20%20%5Bmention%3A%20consumer%20app%20%2F%20business%20tool%20%2F%20marketplace%20%2F%20other%5D%0A%0A%5Bx%5D%20Firebase%20backend%20%E2%80%94%20real-time%20sync%2C%20push%20notifications%2C%20user%20auth.%0A%20%20%20%20%5Bmention%3A%20login%20type%20%E2%80%94%20Google%2C%20email%2C%20phone%20OTP%2C%20etc.%5D%0A%0A%5Bx%5D%20In-app%20monetization%20%E2%80%94%20subscriptions%2C%20one-time%20payments%2C%20or%20freemium.%0A%20%20%20%20%5Bmention%3A%20Stripe%20%2F%20RevenueCat%20%2F%20Play%20Billing%20%2F%20other%5D%0A%0A%5Bx%5D%20User%20dashboard%20or%20portal%20%E2%80%94%20account%20management%2C%20order%20history%2C%20profile.%0A%20%20%20%20%5Bmention%3A%20what%20users%20should%20be%20able%20to%20manage%5D%0A%0A%5Bx%5D%20Real-time%20features%20%E2%80%94%20live%20chat%2C%20live%20order%20tracking%2C%20instant%20data%20updates.%0A%20%20%20%20%5Bmention%3A%20which%20real-time%20feature%20applies%20to%20your%20app%5D%0A%0A%5Bx%5D%20Push%20notifications%20%26%20re-engagement%20%E2%80%94%20smart%20alerts%20to%20bring%20users%20back.%0A%20%20%20%20%5Bmention%3A%20promo%20alerts%20%2F%20reminders%20%2F%20order%20updates%20%2F%20other%5D%0A%0A%5Bx%5D%20Offline%20support%20%E2%80%94%20app%20works%20without%20internet%2C%20syncs%20when%20back%20online.%0A%20%20%20%20%5Bmention%20if%20needed%5D%0A%0A%5Bx%5D%20Admin%20panel%20%2F%20analytics%20dashboard%20%E2%80%94%20manage%20users%2C%20content%2C%20and%20revenue.%0A%20%20%20%20%5Bmention%20what%20you'd%20want%20to%20track%20or%20manage%5D%0A%0A%5Bx%5D%20App%20Store%20%26%20Play%20Store%20submission%20%E2%80%94%20help%20getting%20it%20live%20on%20both%20stores.%0A%20%20%20%20%5Bmention%20if%20you%20need%20help%20with%20this%5D%0A%0A%5Bx%5D%20Anything%20else%20I%20need%3A%0A%20%20%20%20%5Badd%20your%20own%20features%2C%20APIs%2C%20third-party%20integrations%2C%20or%20special%20requirements%5D%0A%0A%2F%2F%20PROJECT%20DETAILS%0A--------------------------------------%0Aapp_idea%20%20%20%20%20%20%E2%86%92%20%5BDescribe%20your%20app%20in%201%E2%80%932%20sentences%5D%0Atarget_users%20%20%E2%86%92%20%5BWho%20will%20use%20it%3F%20e.g.%20shoppers%2C%20patients%2C%20drivers%5D%0Areference_apps%E2%86%92%20%5BApps%20you%20like%20the%20UX%20of%20%E2%80%94%20e.g.%20Uber%2C%20Airbnb%2C%20Duolingo%5D%0Atimeline%20%20%20%20%20%20%E2%86%92%20%5BASAP%20%2F%20within%206%20weeks%20%2F%20flexible%5D%0Abudget%20%20%20%20%20%20%20%20%E2%86%92%20%5B%20%5D%20%24800%E2%80%93%241%2C500%20%20%5B%20%5D%20%241%2C500%E2%80%93%243%2C000%20%20%5B%20%5D%20%243%2C000%E2%80%93%246%2C000%20%20%5B%20%5D%20%246%2C000%2B%20%20%5B%20%5D%20Open%0Acontact%20%20%20%20%20%20%20%E2%86%92%20%5BPhone%20%2F%20WhatsApp%20%C2%B7%20Email%20%C2%B7%20Best%20time%2C%20EST%5D%0A%0AI%20want%20this%20app%20to%20generate%20real%20revenue%20%E2%80%94%20not%20just%20look%20good.%20Tell%20me%20what's%20possible%20within%20my%20budget%20and%20I'm%20ready%20to%20move%20fast.%0A%0ALooking%20forward%20to%20your%20reply!%0A%0A%E2%80%94%20%5BYour%20Name%5D%2C%20%5BBusiness%20%2F%20Startup%20Name%5D" target="_blank" rel="noopener noreferrer" class="sd-cta-btn">Build My App &rarr;</a>
+                  <span class="sd-note">⏱ 3–4 weeks</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 3: Digital Automation -->
+          <div class="service-card" style="--card-accent:#667eea;" data-service="automation">
+            <div class="service-card-top">
+              <i data-lucide="bot"></i>
+              <h3>Digital Automation</h3>
+              <p>n8n workflows, AI agents & API bridges — eliminating repetitive tasks so your team closes deals instead of chasing them.</p>
+              <div class="service-explore-wrap">
+                <button class="service-explore-btn" aria-expanded="false">EXPLORE &rarr;</button>
+              </div>
+            </div>
+            <div class="service-drawer" aria-hidden="true">
+              <div class="service-drawer-inner">
+                <div class="sd-items">
+                  <div class="sd-item"><span class="sd-dot"></span><span>n8n workflows — connect CRMs, forms, databases without code.</span></div>
+                  <div class="sd-item"><span class="sd-dot"></span><span>WhatsApp automation — auto-reply, qualify leads, book appointments.</span></div>
+                  <div class="sd-item"><span class="sd-dot"></span><span>Custom AI agents — GPT-4 / Gemini handling queries & content.</span></div>
+                  <div class="sd-item"><span class="sd-dot"></span><span class="sd-proof-inline">Most businesses waste 15–20 hrs/week on tasks we can automate today.</span></div>
+                </div>
+                <div class="sd-cta-row">
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=husnimubarak534%40gmail.com&su=Automation%20inquiry%20%E2%80%93%20%5BBusiness%20Name%5D&body=Hi%20Husni%2C%0A%0AI%20want%20to%20automate%20some%20repetitive%20tasks%20in%20my%20business%20and%20came%20across%20your%20work.%20Here's%20what%20I'm%20looking%20to%20get%20done%3A%0A%0AWe're%20spending%2015-20%20hours%20a%20week%20on%20manual%20work%20--%20follow-ups%2C%20data%20entry%2C%20lead%20routing.%20I'd%20like%20to%20fix%20that.%0A%0AWhat%20I%20need%20automated%3A%0A%0A01.%20n8n%20workflow%20automation%20--%20connect%20our%20CRMs%2C%20forms%2C%20and%20databases%20without%20code.%0A%20%20%20%20%5Bmention%3A%20tools%20you%20use%20--%20HubSpot%2C%20Notion%2C%20Airtable%2C%20Google%20Sheets%2C%20etc.%5D%0A%0A02.%20WhatsApp%20automation%20--%20auto-replies%2C%20lead%20qualification%2C%20appointment%20booking.%0A%20%20%20%20%5Bmention%3A%20type%20of%20messages%20--%20inquiries%2C%20reminders%2C%20follow-ups%2C%20support%5D%0A%0A03.%20Custom%20AI%20agent%20--%20GPT-4%20or%20Gemini%20handling%20queries%2C%20drafting%20content%2C%20routing%20tasks.%0A%20%20%20%20%5Bmention%3A%20what%20you%20want%20the%20AI%20to%20do%20--%20answer%20FAQs%2C%20write%20emails%2C%20qualify%20leads%5D%0A%0A04.%20API%20integrations%20--%20connect%20tools%20that%20don't%20talk%20to%20each%20other%20yet.%0A%20%20%20%20%5Bmention%3A%20which%20apps%20or%20platforms%20need%20to%20be%20connected%5D%0A%0A05.%20Lead%20capture%20and%20routing%20--%20forms%2C%20landing%20pages%2C%20auto-assign%20leads%20to%20the%20right%20person.%0A%20%20%20%20%5Bmention%3A%20your%20current%20lead%20capture%20method%20and%20where%20leads%20should%20go%5D%0A%0A06.%20Email%20and%20notification%20automation%20--%20triggered%20emails%2C%20Slack%20alerts%2C%20scheduled%20reports.%0A%20%20%20%20%5Bmention%3A%20what%20triggers%20a%20notification%20and%20who%20receives%20it%5D%0A%0A07.%20Internal%20dashboard%20or%20reporting%20--%20auto-generated%20reports%2C%20KPI%20tracking%2C%20live%20data.%0A%20%20%20%20%5Bmention%3A%20what%20metrics%20or%20data%20you%20want%20tracked%20automatically%5D%0A%0A08.%20Anything%20else%3A%0A%20%20%20%20%5Bdescribe%20any%20other%20repetitive%20task%20or%20manual%20process%20you%20want%20eliminated%5D%0A%0AA%20bit%20about%20us%3A%0A%0Abusiness%20%20%20%20%20--%3E%20%5BWhat%20your%20business%20does%20in%20one%20sentence%5D%0Ateam_size%20%20%20%20--%3E%20%5BSolo%20%2F%202-10%20%2F%2010-50%20%2F%2050%2B%5D%0Atools_we_use%20--%3E%20%5Be.g.%20HubSpot%2C%20Notion%2C%20Gmail%2C%20Slack%2C%20Shopify%5D%0Abiggest_pain%20--%3E%20%5BThe%20one%20task%20you%20most%20want%20off%20your%20plate%5D%0Atimeline%20%20%20%20%20--%3E%20%5BThis%20month%20%2F%20next%20quarter%20%2F%20flexible%5D%0Abudget%20%20%20%20%20%20%20--%3E%20%5B%20%5D%20%24500-%241%2C000%20%20%5B%20%5D%20%241%2C000-%242%2C500%20%20%5B%20%5D%20%242%2C500-%245%2C000%20%20%5B%20%5D%20%245%2C000%2B%20%20%5B%20%5D%20Open%0Areach_me%20%20%20%20%20--%3E%20%5BPhone%20%2F%20WhatsApp%20%C2%B7%20Email%20%C2%B7%20Best%20time%2C%20EST%5D%0A%0ALet%20me%20know%20if%20you%20have%20questions%20before%20I%20fill%20this%20out%20fully.%20Looking%20forward%20to%20your%20reply.%0A%0A--%20%5BYour%20Name%5D%2C%20%5BBusiness%20Name%5D" target="_blank" rel="noopener noreferrer" class="sd-cta-btn">Automate My Business &rarr;</a>
+                  <span class="sd-note">⏱ 2–5 days</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+      <!-- PROJECTS SCENE (HORIZONTAL) -->
+      <section id="projects" class="projects-section">
+        <div class="projects-rail">
+          <div class="project-intro">
+            <h2>MY WORK</h2>
+            <p>7 Projects completed to date.</p>
+          </div>
+          <!-- Sample Project Node -->
+          <div class="project-card featured-project">
+            <div class="project-bg"></div>
+            <span class="project-number">01</span>
+            <h3>Grocee Plus</h3>
+            <p class="project-desc">Cross-platform grocery delivery app serving 500+ users.<br>Real-time inventory, Firebase auth &amp; Stripe payments — generating $500 MRR.</p>
+            <div class="tag-row">
+              <span>React Native</span><span>Firebase</span>
+            </div>
+            <div class="impact-badge">FEATURED — $500 MRR</div>
+            <button class="btn btn-outline" data-project="grocee-plus">CASE STUDY &rarr;</button>
+          </div>
+          <div class="project-card normal-project">
+             <div class="project-bg"></div>
+             <span class="project-number">02</span>
+             <h3>Corporate Dashboard</h3>
+             <p class="project-desc">Enterprise analytics suite with real-time KPI tracking &amp; custom reporting.<br>Reduced client decision time by 40% through data visualisation.</p>
+             <div class="tag-row">
+               <span>Next.js</span><span>TypeScript</span><span>Tailwind</span>
+             </div>
+             <div class="impact-badge">ENTERPRISE — ANALYTICS SUITE</div>
+             <button class="btn btn-outline" data-project="corporate-dashboard">CASE STUDY &rarr;</button>
+          </div>
+          <div class="project-card normal-project">
+             <div class="project-bg"></div>
+             <span class="project-number">03</span>
+             <h3>AI SaaS Platform</h3>
+             <p class="project-desc">Multi-tenant SaaS with GPT-4 powered content generation &amp; automation.<br>Shipped to production with usage-based billing &amp; team workspaces.</p>
+             <div class="tag-row">
+               <span>Python</span><span>FastAPI</span><span>OpenAI</span>
+             </div>
+             <div class="impact-badge">SHIPPED — PRODUCTION READY</div>
+             <button class="btn btn-outline" data-project="ai-saas">CASE STUDY &rarr;</button>
+          </div>
+          <div class="project-card normal-project">
+             <div class="project-bg"></div>
+             <span class="project-number">04</span>
+             <h3>Federal Updates</h3>
+             <p class="project-desc">Real-time USA news intelligence hub — Trump admin, federal policy &amp; executive orders, live-tracked.</p>
+             <div class="tag-row">
+               <span>Next.js</span><span>Node.js</span><span>RSS API</span><span>SEO</span>
+             </div>
+             <div class="impact-badge">LIVE — federalupdates.com</div>
+             <button class="btn btn-outline" data-project="federal-updates">CASE STUDY &rarr;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS CONSTELLATION -->
+      <section id="skills" class="scene-section skills-section">
+        <h2 class="display-text skill-name">TECH STACK</h2>
+        <!-- Canvas for interactive floating constellation will be bound here -->
+        <canvas id="skills-constellation"></canvas>
+      </section>
+
+      <!-- CONTACT & FOOTER -->
+      <section id="contact" class="scene-section contact-section">
+        <h1 class="ghost-text-bg">LET'S BUILD</h1>
+        <div class="contact-box">
+          <form class="contact-form" id="contact-form">
+            <input type="hidden" name="access_key" value="dbb70885-bb1a-4bf5-a666-dd5c9f84583c">
+            <input type="hidden" name="subject" value="🚀 New Inquiry — Husni Mubarak Portfolio">
+            <input type="hidden" name="from_name" value="Portfolio Contact Form">
+            <!-- Honeypot spam trap — hidden from humans -->
+            <input type="checkbox" name="botcheck" style="display:none">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Message" required></textarea>
+            <button type="submit" class="btn btn-primary" id="btn-send">SEND MESSAGE</button>
+            <p class="form-status" id="form-status"></p>
+          </form>
+
+          <div class="contact-info">
+             <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=husnimubarak534%40gmail.com&su=I'd%20love%20to%20work%20with%20you%20%E2%80%94%20%5BYour%20Business%20Name%5D&body=Hi%20Husni%2C%0A%0AI%20have%20a%20project%20I'd%20love%20to%20get%20your%20eyes%20on.%20Here's%20the%20short%20version%3A%0A%0AWhat%20I%20need%20built%3A%0A%5Be.g.%20An%20e-commerce%20store%20%2F%20a%20clinic%20website%20%2F%20a%20business%20landing%20page%5D%0A%0AWhat%20it's%20for%3A%0A%5BOne%20or%20two%20sentences%20about%20your%20business%20and%20what%20the%20site%20should%20do%20for%20you%5D%0A%0AAny%20sites%20you%20like%20the%20look%20of%3A%0A%5BURL%20or%20just%20describe%20the%20vibe%20%E2%80%94%20clean%2C%20bold%2C%20minimal%2C%20etc.%5D%0A%0AMust-have%20features%3A%0A%5Be.g.%20Contact%20form%2C%20online%20store%2C%20booking%20system%2C%20photo%20gallery%5D%0A%0AMy%20timeline%3A%0A%5Be.g.%20ASAP%20%2F%20within%20a%20month%20%2F%20flexible%5D%0A%0ABudget%20range%3A%0A%5B%20%5D%20%24500%20%E2%80%93%20%241%2C000%0A%5B%20%5D%20%241%2C000%20%E2%80%93%20%242%2C500%0A%5B%20%5D%20%242%2C500%20%E2%80%93%20%245%2C000%0A%5B%20%5D%20%245%2C000%2B%0A%5B%20%5D%20Open%20%E2%80%94%20let's%20talk%0A%0ABest%20way%20to%20reach%20me%3A%0APhone%20%2F%20WhatsApp%3A%20%5BYour%20Number%5D%0AEmail%3A%20%5BYour%20Email%5D%0ABest%20time%3A%20%5Be.g.%20Weekday%20afternoons%2C%20EST%5D%0A%0AI'm%20genuinely%20excited%20about%20this%20%E2%80%94%20hope%20we%20can%20make%20something%20great%20together.%20Looking%20forward%20to%20your%20reply!%0A%0A%E2%80%94%20%5BYour%20Name%5D%2C%20%5BBusiness%20Name%5D" target="_blank" rel="noopener noreferrer">husnimubarak534@gmail.com</a></p>
+             <p>+91 7002817202</p>
+             <p>Nagaon, Assam, India 🇮🇳</p>
+
+             <!-- Social Links -->
+             <div class="social-links">
+               <!-- Instagram -->
+               <a href="https://ig.me/m/sg_.moon" target="_blank" rel="noopener noreferrer" class="social-icon social-ig" aria-label="Instagram">
+                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+               </a>
+               <!-- Messenger -->
+               <a href="https://m.me/mooni.stranger" target="_blank" rel="noopener noreferrer" class="social-icon social-msg" aria-label="Messenger">
+                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.2 5.42 3.17 7.17V22l2.93-1.61c.83.23 1.7.35 2.61.35h.29c5.64 0 10-4.13 10-9.7S17.64 2 12 2zm1.08 13.05l-2.55-2.73L5.5 15.05l5.56-5.89 2.55 2.73 5.03-2.73-5.56 5.89z"/></svg>
+               </a>
+               <!-- X (Twitter) -->
+               <a href="https://x.com/messages/compose?recipient_id=1074654057829040128" target="_blank" rel="noopener noreferrer" class="social-icon social-x" aria-label="X (Twitter)">
+                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+               </a>
+               <!-- WhatsApp -->
+               <a href="https://wa.me/917002817202?text=Let%E2%80%99s%20build%20something" target="_blank" rel="noopener noreferrer" class="social-icon social-wa" aria-label="WhatsApp">
+                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+               </a>
+               <!-- Telegram -->
+               <a href="https://t.me/husnimubarak534" target="_blank" rel="noopener noreferrer" class="social-icon social-tg" aria-label="Telegram">
+                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+               </a>
+             </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── CASE STUDY MODAL ─────────────────────────────────── -->
+    <div class="cs-overlay" id="cs-overlay" aria-hidden="true">
+      <div class="cs-modal" id="cs-modal" role="dialog" aria-modal="true" data-lenis-prevent>
+        <button class="cs-close" id="cs-close" aria-label="Close case study">
+          <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="1" y1="1" x2="17" y2="17"/>
+            <line x1="17" y1="1" x2="1" y2="17"/>
+          </svg>
+        </button>
+        <div class="cs-body" id="cs-body"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
