@@ -1,0 +1,23 @@
+{
+  "name": "husni-mubarak-s-portfolio",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.4"
+  },
+  "dependencies": {
+    "@chenglou/pretext": "^0.0.5",
+    "@studio-freight/lenis": "^1.0.42",
+    "gsap": "^3.14.2",
+    "lenis": "^1.3.21",
+    "lucide": "^1.8.0",
+    "split-type": "^0.3.4",
+    "three": "^0.183.2"
+  }
+}
