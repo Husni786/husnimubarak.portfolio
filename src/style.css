@@ -1370,6 +1370,14 @@ html.lenis body {
   color: #26a7de;
 }
 
+/* LinkedIn — blue glow */
+.social-li:hover {
+  background: rgba(10, 102, 194, 0.16);
+  border-color: #0a66c2;
+  box-shadow: 0 4px 22px rgba(10, 102, 194, 0.40), 0 0 12px rgba(10, 102, 194, 0.22);
+  color: #0a66c2;
+}
+
 
 /* ════════════════════════════════════════════════════════════
    CASE STUDY MODAL
