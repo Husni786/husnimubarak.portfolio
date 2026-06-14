@@ -37,7 +37,7 @@ export function initTransitions() {
     );
   }
 
-  // Services section — stacked cards, fan-out on scroll
+  // Services section — sticky stack handled by CSS, just animate the heading
   const servicesSection = document.querySelector('.services-section');
   if (servicesSection) {
     gsap.fromTo(servicesSection.querySelector('.ghost-heading'),
@@ -52,44 +52,9 @@ export function initTransitions() {
         }
       }
     );
-
-    const serviceCards = servicesSection.querySelectorAll('.service-card');
-    
-    // First: stack all cards
-    serviceCards.forEach((card, i) => {
-      if (i > 0) {
-        card.classList.add('is-stacked');
-      }
-    });
-
-    // Fan-out: reveal cards one by one on scroll
-    serviceCards.forEach((card, i) => {
-      ScrollTrigger.create({
-        trigger: servicesSection.querySelector('.services-grid'),
-        start: () => `top+=${i * 120} 80%`,
-        onEnter: () => {
-          card.classList.remove('is-stacked');
-          card.classList.add('is-revealed');
-          gsap.fromTo(card,
-            { opacity: 0, y: 40, scale: 0.95 },
-            {
-              opacity: 1, y: 0, scale: 1,
-              duration: 0.8,
-              ease: 'power3.out',
-              delay: i * 0.1
-            }
-          );
-        },
-        onLeaveBack: () => {
-          card.classList.remove('is-revealed');
-          card.classList.add('is-stacked');
-          gsap.set(card, { opacity: i === 0 ? 1 : (1 - i * 0.15), y: i * 8, scale: 1 - i * 0.03 });
-        }
-      });
-    });
   }
 
-  // Projects section — stacked cards, fan-out on scroll
+  // Projects section — sticky stack handled by CSS, just animate the intro
   const projectsSection = document.querySelector('.projects-section');
   if (projectsSection) {
     gsap.fromTo(projectsSection.querySelector('.project-intro'),
@@ -104,41 +69,6 @@ export function initTransitions() {
         }
       }
     );
-
-    const projectCards = projectsSection.querySelectorAll('.project-card');
-    
-    // First: stack all cards
-    projectCards.forEach((card, i) => {
-      if (i > 0) {
-        card.classList.add('is-stacked');
-      }
-    });
-
-    // Fan-out: reveal cards one by one on scroll
-    projectCards.forEach((card, i) => {
-      ScrollTrigger.create({
-        trigger: projectsSection.querySelector('.projects-rail'),
-        start: () => `top+=${i * 140} 85%`,
-        onEnter: () => {
-          card.classList.remove('is-stacked');
-          card.classList.add('is-revealed');
-          gsap.fromTo(card,
-            { opacity: 0, y: 50, scale: 0.95 },
-            {
-              opacity: 1, y: 0, scale: 1,
-              duration: 1,
-              ease: 'power3.out',
-              delay: i * 0.12
-            }
-          );
-        },
-        onLeaveBack: () => {
-          card.classList.remove('is-revealed');
-          card.classList.add('is-stacked');
-          gsap.set(card, { opacity: i === 0 ? 1 : (1 - i * 0.15), y: i * 10, scale: 1 - i * 0.03 });
-        }
-      });
-    });
   }
 
   // Skills section

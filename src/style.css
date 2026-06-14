@@ -997,14 +997,12 @@ html.lenis body {
   gap: 0;
   margin-top: 4rem;
   padding: 20px 0;
-  perspective: 1200px;
   position: relative;
-  min-height: 400px;
 }
 
-/* ── Base Card — Neumorphic Dark + Stack ──────────────── */
+/* ── Base Card — Sticky Stack (Stacky style) ──────────────── */
 .service-card {
-  position: relative;
+  position: sticky;
   background: var(--bg-surface);
   border-radius: 16px;
   overflow: hidden;
@@ -1015,58 +1013,34 @@ html.lenis body {
     15px 15px 30px rgb(25, 25, 25),
     -15px -15px 30px rgb(60, 60, 60);
   transition:
-    margin 0.48s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.40s ease,
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.5s ease;
-  /* Stack initial state — all cards stacked on top */
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
-  z-index: 1;
+    box-shadow 0.5s ease;
   /* Center the card */
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Stacked state — cards layered behind the first */
-.service-card.is-stacked {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
+/* Incremental sticky top — cards stack on scroll */
+.service-card:nth-child(1) { top: 80px; z-index: 5; }
+.service-card:nth-child(2) { top: 95px; z-index: 4; }
+.service-card:nth-child(3) { top: 110px; z-index: 3; }
+.service-card:nth-child(4) { top: 125px; z-index: 2; }
 
-.service-card.is-stacked:nth-child(1) {
-  z-index: 5;
-  transform: translateY(0) scale(1);
-}
+/* Scale down cards as they get stacked behind */
+.service-card:nth-child(1) { transform: scale(1); }
+.service-card:nth-child(2) { transform: scale(0.97); }
+.service-card:nth-child(3) { transform: scale(0.94); }
+.service-card:nth-child(4) { transform: scale(0.91); }
 
-.service-card.is-stacked:nth-child(2) {
-  z-index: 4;
-  transform: translateY(10px) scale(0.97);
-  opacity: 0.85;
+/* Hover lift on any card */
+.service-card:hover {
+  transform: scale(1.02) translateY(-4px);
+  box-shadow:
+    20px 20px 40px rgb(20, 20, 20),
+    -20px -20px 40px rgb(65, 65, 65),
+    0 0 30px color-mix(in srgb, var(--signal-start) 10%, transparent);
+  z-index: 10 !important;
 }
-
-.service-card.is-stacked:nth-child(3) {
-  z-index: 3;
-  transform: translateY(20px) scale(0.94);
-  opacity: 0.7;
-}
-
-.service-card.is-stacked:nth-child(4) {
-  z-index: 2;
-  transform: translateY(30px) scale(0.91);
-  opacity: 0.55;
-}
-
-/* Revealed — fan out to vertical stacked position */
-.service-card.is-revealed {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.service-card.is-revealed:nth-child(1) { margin-bottom: 1.5rem; }
-.service-card.is-revealed:nth-child(2) { margin-bottom: 1.5rem; }
-.service-card.is-revealed:nth-child(3) { margin-bottom: 1.5rem; }
-.service-card.is-revealed:nth-child(4) { margin-bottom: 0; }
 
 /* Gradient border glow on hover */
 .service-card::before {
@@ -1286,9 +1260,7 @@ html.lenis body {
   max-width: 600px;
   margin: 0 auto;
   padding: 0 2rem;
-  perspective: 1200px;
   position: relative;
-  min-height: 400px;
 }
 
 /* MY WORK intro card — always bold, always visible */
@@ -1322,13 +1294,13 @@ html.lenis body {
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.80);
 }
 
-/* ── PROJECT CARDS — Neumorphic Stack ──────────────── */
+/* ── PROJECT CARDS — Sticky Stack (Stacky style) ──────────────── */
 .project-card {
   width: 100%;
   max-width: 560px;
   min-height: 360px;
   border-radius: 20px;
-  position: relative;
+  position: sticky;
   padding: 2rem;
   flex-shrink: 0;
   display: flex;
@@ -1344,56 +1316,24 @@ html.lenis body {
     15px 15px 30px rgb(25, 25, 25),
     -15px -15px 30px rgb(60, 60, 60);
 
-  transition: box-shadow 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
-
-  /* Stack initial state */
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
-  z-index: 1;
-  /* Center */
-  margin-left: auto;
-  margin-right: auto;
+  transition: box-shadow 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Stacked state — cards layered */
-.project-card.is-stacked {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
+/* Incremental sticky top — cards stack on scroll */
+.project-card:nth-child(1) { top: 80px; z-index: 5; transform: scale(1); }
+.project-card:nth-child(2) { top: 100px; z-index: 4; transform: scale(0.97); }
+.project-card:nth-child(3) { top: 120px; z-index: 3; transform: scale(0.94); }
+.project-card:nth-child(4) { top: 140px; z-index: 2; transform: scale(0.91); }
 
-.project-card.is-stacked:nth-child(1) {
-  z-index: 5;
-  transform: translateY(0) scale(1);
+/* Hover lift */
+.project-card:hover {
+  transform: scale(1.02) translateY(-4px);
+  box-shadow:
+    20px 20px 40px rgb(20, 20, 20),
+    -20px -20px 40px rgb(65, 65, 65),
+    0 0 40px color-mix(in srgb, var(--signal-start) 12%, transparent);
+  z-index: 10 !important;
 }
-
-.project-card.is-stacked:nth-child(2) {
-  z-index: 4;
-  transform: translateY(10px) scale(0.97);
-  opacity: 0.85;
-}
-
-.project-card.is-stacked:nth-child(3) {
-  z-index: 3;
-  transform: translateY(20px) scale(0.94);
-  opacity: 0.7;
-}
-
-.project-card.is-stacked:nth-child(4) {
-  z-index: 2;
-  transform: translateY(30px) scale(0.91);
-  opacity: 0.55;
-}
-
-/* Revealed — fan out vertically */
-.project-card.is-revealed {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.project-card.is-revealed:nth-child(1) { margin-bottom: 2rem; }
-.project-card.is-revealed:nth-child(2) { margin-bottom: 2rem; }
-.project-card.is-revealed:nth-child(3) { margin-bottom: 2rem; }
-.project-card.is-revealed:nth-child(4) { margin-bottom: 0; }
 
 /* Glow trail — cursor-positioned radial gradient */
 .project-card::before {
