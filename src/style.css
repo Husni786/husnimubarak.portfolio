@@ -1,37 +1,26 @@
 :root {
-  /* Core palette */
-  --bg-void: #060608;
-  /* near-black page base */
-  --bg-surface: #0d0d12;
-  /* card surfaces */
-  --bg-elevated: #141420;
-  /* hover surfaces */
+  /* Core palette — warm stone tones, not cold synthetic */
+  --bg-void: #0f0f0f;
+  --bg-surface: #1a1a1a;
+  --bg-elevated: #222222;
 
-  /* Signal gradient — purple/violet brand */
-  --signal-start: #667eea;
-  /* purple */
-  --signal-end: #764ba2;
-  /* violet */
-  --signal-mid: #9b6dff;
-  /* electric violet */
+  /* Signal — warm amber/copper brand (not overused purple) */
+  --signal-start: #c8956c;
+  --signal-end: #a07850;
+  --signal-mid: #d4a574;
 
-  /* Text */
-  --text-primary: #f0f0f5;
-  --text-dim: #b0b3be;
-  /* was #6b7280 — much more readable on dark bg */
-  --text-ghost: #4a4a58;
+  /* Text — warm whites, not blue-white */
+  --text-primary: #e8e4df;
+  --text-dim: #9a9590;
+  --text-ghost: #5a5550;
 
-  /* Accent */
-  --accent-live: #00f5a0;
-  /* neon mint — sparingly */
-  --accent-pulse: #ff3d6b;
-  /* hot coral — for alerts/CTAs */
+  /* Accent — muted sage green, sparingly */
+  --accent-live: #7fb069;
+  --accent-pulse: #c76f5b;
 
   /* Typography Scales */
   --fs-hero: clamp(5rem, 14vw, 13rem);
-  /* "HUSNI MUBARAK" */
   --fs-display: clamp(3rem, 7vw, 7rem);
-  /* section titles */
   --fs-title: clamp(1.5rem, 3vw, 2.5rem);
   --fs-body: clamp(0.95rem, 1.2vw, 1.1rem);
   --fs-mono: clamp(0.7rem, 0.9vw, 0.85rem);
@@ -56,12 +45,170 @@ body {
   font-family: var(--font-body);
   overflow-x: hidden;
   transition: background-color 0s, color 0s;
-  /* Handled by GSAP ScrollTrigger */
 }
 
 a,
 button {
   cursor: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   PREMIUM PRELOADER
+   ════════════════════════════════════════════════════════════════════════ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f0f0f;
+}
+
+.pl-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.pl-monogram {
+  width: 60px;
+  height: 60px;
+  color: #c8956c;
+  filter: drop-shadow(0 0 20px rgba(200, 149, 108, 0.5));
+}
+
+.pl-name {
+  display: flex;
+  gap: 0.05em;
+  font-family: var(--font-hero);
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  perspective: 600px;
+}
+
+.pl-letter {
+  display: inline-block;
+  transform-style: preserve-3d;
+}
+
+.pl-space {
+  width: 0.3em;
+}
+
+.pl-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.pl-progress {
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.pl-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #c8956c, #a07850);
+  border-radius: 2px;
+  position: relative;
+}
+
+.pl-progress-glow {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 0%;
+  height: 10px;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.4), transparent);
+  border-radius: 10px;
+  opacity: 0;
+  filter: blur(4px);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   NOISE / FILM GRAIN OVERLAY
+   ════════════════════════════════════════════════════════════════════════ */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   ENHANCED SCROLL PROGRESS + SECTION BREADCRUMBS
+   ════════════════════════════════════════════════════════════════════════ */
+.scroll-progress-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0%;
+  background: var(--signal-start);
+  z-index: 1000;
+  box-shadow: 0 0 10px var(--signal-start);
+}
+
+.scroll-progress-glow {
+  position: fixed;
+  top: 0;
+  left: -2px;
+  width: 6px;
+  height: 0%;
+  background: var(--signal-start);
+  z-index: 999;
+  filter: blur(4px);
+  opacity: 0.5;
+  box-shadow: 0 0 20px var(--signal-start);
+}
+
+.section-breadcrumbs {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+
+.bc-item {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+
+.bc-item.active {
+  background: var(--signal-start);
+  border-color: var(--signal-start);
+  box-shadow: 0 0 12px var(--signal-start), 0 0 24px rgba(102, 126, 234, 0.3);
+  transform: scale(1.3);
+}
+
+.bc-item:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.15);
 }
 
 /* --- Typographic Elements --- */
@@ -446,11 +593,51 @@ h6 {
   font-size: var(--fs-hero);
   line-height: 0.85;
   margin: 2vh 0;
+  position: relative;
+}
+
+/* Animated gradient text overlay for hero */
+.hero-title::after {
+  content: 'HUSNI MUBARAK';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--signal-start) 0%,
+    var(--signal-mid) 25%,
+    var(--accent-live) 50%,
+    var(--signal-mid) 75%,
+    var(--signal-start) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease-in-out infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-title:hover::after {
+  opacity: 1;
 }
 
 .outlined-text {
   color: transparent;
   -webkit-text-stroke: 2px var(--signal-start);
+  transition: -webkit-text-stroke-color 0.3s ease;
+}
+
+.hero-title:hover .outlined-text {
+  -webkit-text-stroke-color: var(--signal-mid);
 }
 
 .hero-subtitle {
@@ -494,19 +681,61 @@ h6 {
   background: transparent;
   color: var(--text-primary);
   border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple effect on click */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.btn:active::before {
+  width: 300px;
+  height: 300px;
+  opacity: 0;
 }
 
 .btn-primary,
 .btn-gradient {
   background: linear-gradient(135deg, var(--signal-start), var(--signal-end));
-  box-shadow: 0 4px 24px rgba(102, 126, 234, 0.25);
+  box-shadow:
+    0 4px 24px rgba(102, 126, 234, 0.25),
+    0 0 0 1px rgba(102, 126, 234, 0.1);
   position: relative;
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-gradient:hover {
+  box-shadow:
+    0 8px 40px rgba(102, 126, 234, 0.4),
+    0 0 0 1px rgba(102, 126, 234, 0.3),
+    0 0 60px rgba(102, 126, 234, 0.15);
 }
 
 .btn-outline {
   border: 1px solid var(--signal-start);
   color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--signal-mid);
+  box-shadow:
+    0 0 20px rgba(102, 126, 234, 0.2),
+    inset 0 0 20px rgba(102, 126, 234, 0.05);
 }
 
 /* --- 3D Tilt Button --- */
@@ -648,6 +877,21 @@ html.lenis body {
   align-items: center;
   gap: 0.4rem;
   min-width: 120px;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.3s ease;
+}
+
+/* Glow pulse when stats animate */
+.stat-box.stat-glow {
+  box-shadow:
+    0 0 20px rgba(102, 126, 234, 0.2),
+    0 0 40px rgba(102, 126, 234, 0.1);
+  border-color: rgba(102, 126, 234, 0.3);
+  transform: translateY(-3px);
+}
+
+.stat-box:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
 }
 
 /* Big number row */
@@ -747,44 +991,125 @@ html.lenis body {
 }
 
 .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
   margin-top: 4rem;
-  /* Each card stays its own height — prevents stretch on expand */
-  align-items: start;
-  /* Extra vertical padding so -margin expansion has room */
   padding: 20px 0;
+  perspective: 1200px;
+  position: relative;
+  min-height: 400px;
 }
 
-/* ── Base Card ────────────────────────────────────────── */
+/* ── Base Card — Neumorphic Dark + Stack ──────────────── */
 .service-card {
   position: relative;
   background: var(--bg-surface);
   border-radius: 16px;
-  border-top: 4px solid var(--card-accent, #667eea);
-  border-bottom: 4px solid transparent;
+  border-top: none;
+  border-bottom: none;
   overflow: hidden;
+  width: 100%;
+  max-width: 420px;
+  /* Neumorphic shadow */
+  box-shadow:
+    15px 15px 30px rgb(25, 25, 25),
+    -15px -15px 30px rgb(60, 60, 60);
   transition:
     margin 0.48s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.48s ease,
     box-shadow 0.40s ease,
-    transform 0.28s ease;
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s ease;
+  /* Stack initial state — all cards stacked on top */
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  z-index: 1;
+}
+
+/* Stacked state — cards layered behind the first */
+.service-card.is-stacked {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -210px; /* half of max-width */
+}
+
+.service-card.is-stacked:nth-child(1) {
+  z-index: 5;
+  transform: translateY(0) scale(1) translateZ(0);
+}
+
+.service-card.is-stacked:nth-child(2) {
+  z-index: 4;
+  transform: translateY(8px) scale(0.97) translateZ(-20px);
+  opacity: 0.85;
+}
+
+.service-card.is-stacked:nth-child(3) {
+  z-index: 3;
+  transform: translateY(16px) scale(0.94) translateZ(-40px);
+  opacity: 0.7;
+}
+
+.service-card.is-stacked:nth-child(4) {
+  z-index: 2;
+  transform: translateY(24px) scale(0.91) translateZ(-60px);
+  opacity: 0.55;
+}
+
+/* Revealed — fan out to vertical stacked position */
+.service-card.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1) translateZ(0);
+  position: relative;
+  left: auto;
+  margin-left: auto;
+}
+
+.service-card.is-revealed:nth-child(1) { margin-bottom: 1.5rem; }
+.service-card.is-revealed:nth-child(2) { margin-bottom: 1.5rem; }
+.service-card.is-revealed:nth-child(3) { margin-bottom: 1.5rem; }
+.service-card.is-revealed:nth-child(4) { margin-bottom: 0; }
+
+/* Gradient border glow on hover */
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, var(--signal-start), transparent 60%) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.service-card:hover::before {
+  opacity: 0.5;
 }
 
 .service-card:hover:not(.is-open) {
   transform: translateY(-5px);
-  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.52);
+  box-shadow:
+    20px 20px 40px rgb(20, 20, 20),
+    -20px -20px 40px rgb(65, 65, 65),
+    0 0 30px color-mix(in srgb, var(--signal-start) 10%, transparent);
 }
 
 /* Expand simultaneously UP and DOWN via negative margin trick */
 .service-card.is-open {
   margin-top: -16px;
   margin-bottom: -16px;
-  border-bottom: 4px solid var(--card-accent, #667eea);
   box-shadow:
-    0 -10px 32px color-mix(in srgb, var(--card-accent, #667eea) 22%, rgba(0, 0, 0, 0.4)),
-    0 10px 32px color-mix(in srgb, var(--card-accent, #667eea) 22%, rgba(0, 0, 0, 0.4));
+    20px 20px 40px rgb(20, 20, 20),
+    -20px -20px 40px rgb(65, 65, 65),
+    0 0 40px color-mix(in srgb, var(--signal-start) 15%, transparent);
   transform: none;
   z-index: 10;
 }
@@ -797,7 +1122,7 @@ html.lenis body {
 }
 
 .service-card-top i {
-  color: var(--card-accent, #667eea);
+  color: var(--signal-start);
 }
 
 .service-card-top h3 {
@@ -829,24 +1154,24 @@ html.lenis body {
   font-size: 0.70rem;
   font-weight: 700;
   letter-spacing: 0.13em;
-  color: var(--card-accent, #667eea);
+  color: var(--signal-start);
   background: rgba(255, 255, 255, 0.055);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid color-mix(in srgb, var(--card-accent, #667eea) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--signal-start, #c8956c) 55%, transparent);
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   cursor: pointer;
   transition: background 0.22s, box-shadow 0.22s, color 0.22s, transform 0.18s;
 }
 
 .service-explore-btn:hover {
-  background: color-mix(in srgb, var(--card-accent, #667eea) 18%, transparent);
-  box-shadow: 0 5px 20px color-mix(in srgb, var(--card-accent, #667eea) 38%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  background: color-mix(in srgb, var(--signal-start, #c8956c) 18%, transparent);
+  box-shadow: 0 5px 20px color-mix(in srgb, var(--signal-start, #c8956c) 38%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   transform: translateY(-2px);
 }
 
 .service-explore-btn[aria-expanded="true"] {
-  background: color-mix(in srgb, var(--card-accent, #667eea) 22%, transparent);
+  background: color-mix(in srgb, var(--signal-start, #c8956c) 22%, transparent);
   color: #fff;
 }
 
@@ -891,14 +1216,14 @@ html.lenis body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--card-accent, #667eea);
+  background: var(--signal-start, #c8956c);
   margin-top: 5px;
-  box-shadow: 0 0 6px var(--card-accent, #667eea);
+  box-shadow: 0 0 6px var(--signal-start, #c8956c);
 }
 
 .sd-proof-inline {
   font-style: italic;
-  color: color-mix(in srgb, var(--card-accent, #667eea) 85%, white);
+  color: color-mix(in srgb, var(--signal-start, #c8956c) 85%, white);
   opacity: 0.90;
 }
 
@@ -920,15 +1245,15 @@ html.lenis body {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-decoration: none;
-  color: #0a0a12;
-  background: var(--card-accent, #667eea);
-  box-shadow: 0 4px 18px color-mix(in srgb, var(--card-accent, #667eea) 42%, transparent);
+  color: #1a1a1a;
+  background: var(--signal-start, #c8956c);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--signal-start, #c8956c) 42%, transparent);
   transition: transform 0.18s, box-shadow 0.18s;
 }
 
 .sd-cta-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 7px 26px color-mix(in srgb, var(--card-accent, #667eea) 62%, transparent);
+  box-shadow: 0 7px 26px color-mix(in srgb, var(--signal-start, #c8956c) 62%, transparent);
 }
 
 .sd-note {
@@ -952,19 +1277,24 @@ html.lenis body {
 
 /* Horizontal Scroll Projects */
 .projects-section {
-  height: 100vh;
   width: 100%;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  padding: 6rem 0;
 }
 
 .projects-rail {
   display: flex;
-  width: max-content;
-  height: 100%;
+  flex-direction: column;
   align-items: center;
-  padding: 0 10vw;
-  gap: 4vw;
+  gap: 0;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  perspective: 1200px;
+  position: relative;
+  min-height: 400px;
 }
 
 /* MY WORK intro card — always bold, always visible */
@@ -978,11 +1308,11 @@ html.lenis body {
   font-size: clamp(1.6rem, 2.8vw, 2.6rem);
   font-weight: 600;
   line-height: 1.05;
-  color: #ffffff;
+  color: var(--text-primary);
   opacity: 1 !important;
   letter-spacing: 0.04em;
   text-shadow:
-    0 0 16px rgba(255, 255, 255, 0.18),
+    0 0 16px rgba(200, 149, 108, 0.18),
     0 2px 10px rgba(0, 0, 0, 0.75);
 }
 
@@ -990,7 +1320,7 @@ html.lenis body {
   font-family: var(--font-display);
   font-size: clamp(0.95rem, 1.4vw, 1.15rem);
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
   opacity: 1 !important;
   margin-top: 0.75rem;
   letter-spacing: 0.04em;
@@ -998,10 +1328,11 @@ html.lenis body {
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.80);
 }
 
-/* ── PROJECT CARDS — Liquid Glass ──────────────────────────── */
+/* ── PROJECT CARDS — Neumorphic Stack ──────────────── */
 .project-card {
-  width: 400px;
-  height: 60vh;
+  width: 100%;
+  max-width: 520px;
+  min-height: 320px;
   border-radius: 20px;
   position: relative;
   padding: 2rem;
@@ -1011,44 +1342,129 @@ html.lenis body {
   gap: 0.75rem;
   overflow: hidden;
 
-  /* Liquid glass body — same system as the header */
-  backdrop-filter: blur(32px) saturate(180%) brightness(1.10);
-  -webkit-backdrop-filter: blur(32px) saturate(180%) brightness(1.10);
-  background:
-    linear-gradient(160deg,
-      hsl(0 0% 100% / 0.10) 0%,
-      hsl(0 0% 100% / 0.04) 100%),
-    hsl(0 0% 0% / 0.20);
+  /* Solid surface for neumorphic */
+  background: var(--bg-surface);
 
-  /* Environment reflection shadow stack */
+  /* Neumorphic shadow */
   box-shadow:
-    /* lift */
-    0 8px 32px hsl(0 0% 0% / 0.50),
-    0 2px 8px hsl(0 0% 0% / 0.30),
-    /* top rim — ceiling catch */
-    inset 1px -2px 4px hsl(0 0% 100% / 0.18),
-    inset 0px -2px 4px hsl(0 0% 100% / 0.18),
-    inset -1px -2px 4px hsl(0 0% 100% / 0.18),
-    /* bottom rim — AO */
-    inset 1px 2px 4px hsl(0 0% 10% / 0.50),
-    inset -1px 2px 6px hsl(0 0% 10% / 0.30),
-    /* rim outline */
-    0 0 0 1px hsl(0 0% 100% / 0.12);
+    15px 15px 30px rgb(25, 25, 25),
+    -15px -15px 30px rgb(60, 60, 60);
 
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.35s ease;
+  transition: box-shadow 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+
+  /* Stack initial state */
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  z-index: 1;
+}
+
+/* Stacked state — cards layered */
+.project-card.is-stacked {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -260px; /* half of max-width */
+}
+
+.project-card.is-stacked:nth-child(1) {
+  z-index: 5;
+  transform: translateY(0) scale(1) translateZ(0);
+}
+
+.project-card.is-stacked:nth-child(2) {
+  z-index: 4;
+  transform: translateY(10px) scale(0.97) translateZ(-20px);
+  opacity: 0.85;
+}
+
+.project-card.is-stacked:nth-child(3) {
+  z-index: 3;
+  transform: translateY(20px) scale(0.94) translateZ(-40px);
+  opacity: 0.7;
+}
+
+.project-card.is-stacked:nth-child(4) {
+  z-index: 2;
+  transform: translateY(30px) scale(0.91) translateZ(-60px);
+  opacity: 0.55;
+}
+
+/* Revealed — fan out vertically */
+.project-card.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1) translateZ(0);
+  position: relative;
+  left: auto;
+  margin-left: auto;
+}
+
+.project-card.is-revealed:nth-child(1) { margin-bottom: 2rem; }
+.project-card.is-revealed:nth-child(2) { margin-bottom: 2rem; }
+.project-card.is-revealed:nth-child(3) { margin-bottom: 2rem; }
+.project-card.is-revealed:nth-child(4) { margin-bottom: 0; }
+
+/* Glow trail — cursor-positioned radial gradient */
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: radial-gradient(
+    400px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    color-mix(in srgb, var(--signal-start) 14%, transparent) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+/* Animated gradient border on hover */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  background: linear-gradient(
+    var(--border-angle, 0deg),
+    var(--signal-start),
+    var(--signal-mid),
+    var(--signal-end),
+    var(--signal-start)
+  );
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes borderRotate {
+  to { --border-angle: 360deg; }
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.project-card:hover::after {
+  opacity: 0.6;
+  animation: borderRotate 3s linear infinite;
 }
 
 .project-card:hover {
-  transform: translateY(-6px) scale(1.02);
+  transform: translateY(-6px);
   box-shadow:
-    0 16px 48px hsl(0 0% 0% / 0.55),
-    0 4px 16px hsl(0 0% 0% / 0.35),
-    inset 1px -2px 4px hsl(0 0% 100% / 0.22),
-    inset 0px -2px 4px hsl(0 0% 100% / 0.22),
-    inset -1px -2px 4px hsl(0 0% 100% / 0.22),
-    inset 1px 2px 4px hsl(0 0% 10% / 0.55),
-    0 0 0 1px hsl(0 0% 100% / 0.20);
+    20px 20px 40px rgb(20, 20, 20),
+    -20px -20px 40px rgb(65, 65, 65),
+    0 0 40px color-mix(in srgb, var(--signal-start) 12%, transparent);
 }
 
 /* Featured card — stronger accent rim */
@@ -1220,12 +1636,33 @@ html.lenis body {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   margin-top: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle gradient glow behind contact box */
+.contact-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(102, 126, 234, 0.06) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .contact-form input,
@@ -1236,10 +1673,20 @@ html.lenis body {
   color: white;
   font-family: var(--font-mono);
   outline: none;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.1), inset 0 0 20px rgba(102, 126, 234, 0.03);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .contact-form textarea {
   min-height: 120px;
+  resize: vertical;
 }
 
 /* Form Status Message */
@@ -1320,16 +1767,23 @@ html.lenis body {
     border-color 0.25s ease,
     box-shadow 0.30s ease,
     transform 0.20s ease;
+  transform-style: preserve-3d;
+  perspective: 400px;
 }
 
 .social-icon svg {
   width: 22px;
   height: 22px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .social-icon:hover {
-  transform: translateY(-3px) scale(1.08);
+  transform: translateY(-4px) scale(1.1);
   color: #fff;
+}
+
+.social-icon:hover svg {
+  transform: rotateY(15deg) scale(1.05);
 }
 
 /* Instagram — gradient glow */
@@ -2016,15 +2470,29 @@ html.lenis body {
 
   /* Services */
   .services-grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
+    min-height: auto;
+  }
+
+  .service-card {
+    max-width: 100%;
+  }
+
+  .service-card.is-stacked {
+    margin-left: -50%;
+    left: 50%;
   }
 
   /* Projects */
   .project-card {
-    width: 340px;
-    height: 55vh;
+    width: 100%;
+    max-width: 100%;
+    min-height: 280px;
     padding: 1.5rem;
+  }
+
+  .project-card.is-stacked {
+    margin-left: -50%;
+    left: 50%;
   }
 
   /* Contact */
@@ -2057,6 +2525,11 @@ html.lenis body {
   a,
   button {
     cursor: auto !important;
+  }
+
+  /* Hide breadcrumbs on mobile */
+  .section-breadcrumbs {
+    display: none;
   }
 
   .scene-section {
@@ -2206,9 +2679,17 @@ html.lenis body {
 
   /* ── SERVICES ── */
   .services-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    min-height: auto;
     margin-top: 2rem;
+  }
+
+  .service-card {
+    max-width: 100%;
+  }
+
+  .service-card.is-stacked {
+    margin-left: -50%;
+    left: 50%;
   }
 
   .service-card-top {
@@ -2224,7 +2705,7 @@ html.lenis body {
     padding: 0.6rem 1.4rem;
   }
 
-  /* ── PROJECTS — vertical scroll on mobile ── */
+  /* ── PROJECTS — stacked layout ── */
   .projects-section {
     height: auto;
     overflow: visible;
@@ -2233,14 +2714,15 @@ html.lenis body {
   .projects-rail {
     flex-direction: column;
     width: 100%;
-    padding: 80px 5vw;
-    gap: 2rem;
-    align-items: stretch;
+    padding: 4rem 2rem;
+    gap: 0;
+    align-items: center;
+    min-height: auto;
   }
 
   .project-card {
     width: 100%;
-    height: auto;
+    max-width: 100%;
     min-height: 280px;
   }
 
@@ -2405,8 +2887,8 @@ html.lenis body {
 
   /* Projects */
   .projects-rail {
-    padding: 70px 4vw;
-    gap: 1.5rem;
+    padding: 3rem 4vw;
+    gap: 0;
   }
 
   .project-card {
@@ -2605,5 +3087,15 @@ html.lenis body {
   /* ── Lift body content so it doesn't hide behind pill ── */
   body {
     padding-bottom: 100px;
+  }
+
+  /* Preloader mobile */
+  .pl-name {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+  }
+
+  .pl-monogram {
+    width: 45px;
+    height: 45px;
   }
 }

@@ -3,11 +3,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export function initTheming() {
   const themePhases = [
-    { bg: [6,6,8],       text: [240,240,245], accent: [102,126,234] },  // Void
-    { bg: [15,15,26],    text: [224,223,245], accent: [130,100,240] },  // Dusk
-    { bg: [30,21,53],    text: [212,207,240], accent: [160,80,220] },   // Dawn
-    { bg: [245,240,255], text: [26,18,40],    accent: [100,80,200] },   // Morning
-    { bg: [255,255,255], text: [13,13,18],    accent: [80,60,180] },    // Noon
+    { bg: [15,15,15],     text: [232,228,223], accent: [200,149,108] },  // Void
+    { bg: [18,18,18],     text: [228,224,219], accent: [190,140,100] },  // Dusk
+    { bg: [22,20,18],     text: [220,216,211], accent: [180,130,95] },   // Dawn
+    { bg: [26,26,26],     text: [210,206,201], accent: [170,120,90] },   // Morning
+    { bg: [30,28,26],     text: [200,196,191], accent: [160,110,85] },   // Noon
   ];
 
   const rootStyles = document.documentElement.style;
