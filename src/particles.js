@@ -17,7 +17,7 @@ export function initParticles() {
   // ── Instanced Particle Mesh ──────────────────────────────────────────
   const PARTICLE_COUNT = 1400;
   const material = new THREE.MeshBasicMaterial({
-    color: '#667eea',
+    color: '#c8956c',
     transparent: true,
     opacity: 0.55
   });
@@ -104,7 +104,7 @@ export function initParticles() {
   // ── Second wave layer (offset, slower) ───────────────────────────────
   const wave2Geo = new THREE.PlaneGeometry(350, 350, 32, 32);
   const wave2Mat = new THREE.MeshBasicMaterial({
-    color: '#667eea',
+    color: '#c8956c',
     wireframe: true,
     transparent: true,
     opacity: 0.03
@@ -167,7 +167,7 @@ export function initParticles() {
 
     // ── Dynamic theme color sync ─────────────────────────────────────
     const rootStyle = getComputedStyle(document.documentElement);
-    const signalColor = rootStyle.getPropertyValue('--signal-start').trim() || '#667eea';
+    const signalColor = rootStyle.getPropertyValue('--signal-start').trim() || '#c8956c';
     const bgColor = rootStyle.getPropertyValue('--bg-void').trim() || '#060608';
 
     material.color.set(signalColor);

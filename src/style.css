@@ -920,7 +920,7 @@ html.lenis body {
 /* ── Slot machine drum (MRR) ── */
 .stat-dollar {
   font-size: clamp(1.2rem, 2.2vw, 1.7rem);
-  color: var(--accent, #7c6fe0);
+  color: var(--signal-start);
   line-height: 1;
   align-self: baseline;
 }
@@ -958,7 +958,7 @@ html.lenis body {
   display: block;
   height: 1em;
   white-space: nowrap;
-  color: var(--accent, #7c6fe0);
+  color: var(--signal-start);
 }
 
 .cutout-wrapper {
@@ -1009,7 +1009,7 @@ html.lenis body {
   border-radius: 16px;
   overflow: hidden;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
   /* Neumorphic shadow */
   box-shadow:
     15px 15px 30px rgb(25, 25, 25),
@@ -1283,7 +1283,7 @@ html.lenis body {
   align-items: center;
   gap: 0;
   width: 100%;
-  max-width: 520px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 0 2rem;
   perspective: 1200px;
@@ -1325,8 +1325,8 @@ html.lenis body {
 /* ── PROJECT CARDS — Neumorphic Stack ──────────────── */
 .project-card {
   width: 100%;
-  max-width: 520px;
-  min-height: 320px;
+  max-width: 560px;
+  min-height: 360px;
   border-radius: 20px;
   position: relative;
   padding: 2rem;
@@ -1459,17 +1459,12 @@ html.lenis body {
 
 /* Featured card — stronger accent rim */
 .featured-project {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   box-shadow:
-    0 8px 32px hsl(0 0% 0% / 0.55),
-    0 2px 8px hsl(0 0% 0% / 0.30),
-    inset 1px -2px 4px hsl(0 0% 100% / 0.22),
-    inset 0px -2px 4px hsl(0 0% 100% / 0.22),
-    inset -1px -2px 4px hsl(0 0% 100% / 0.22),
-    inset 1px 2px 4px hsl(0 0% 10% / 0.50),
-    /* accent rim glow */
-    0 0 0 1px hsl(0 0% 100% / 0.25),
-    0 0 24px hsl(250 80% 65% / 0.20);
+    15px 15px 30px rgb(25, 25, 25),
+    -15px -15px 30px rgb(60, 60, 60),
+    0 0 24px color-mix(in srgb, var(--signal-start) 15%, transparent);
 }
 
 /* ── CARD TEXT — light on dark ─────────────────────────── */
@@ -1821,7 +1816,7 @@ html.lenis body {
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: hsl(240 20% 4% / 0.82);
+  background: rgba(15, 15, 15, 0.92);
   backdrop-filter: blur(28px) saturate(140%);
   -webkit-backdrop-filter: blur(28px) saturate(140%);
   opacity: 0;
@@ -1835,20 +1830,16 @@ html.lenis body {
   overflow-y: auto;
   border-radius: 28px;
   position: relative;
-  background:
-    linear-gradient(150deg, hsl(0 0% 100% / 0.08) 0%, hsl(0 0% 0% / 0) 60%),
-    hsl(240 10% 6% / 0.98);
+  background: var(--bg-surface);
   backdrop-filter: blur(40px) saturate(180%);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
   box-shadow:
-    0 40px 120px hsl(0 0% 0% / 0.85),
-    0 8px 28px hsl(0 0% 0% / 0.50),
-    inset 1px -2px 4px hsl(0 0% 100% / 0.12),
-    inset -1px -2px 4px hsl(0 0% 100% / 0.12),
-    inset 0 2px 4px hsl(0 0% 0% / 0.60),
-    0 0 0 1px hsl(0 0% 100% / 0.10);
+    0 40px 120px rgba(0, 0, 0, 0.85),
+    0 8px 28px rgba(0, 0, 0, 0.50),
+    inset 0 2px 4px rgba(0, 0, 0, 0.60),
+    0 0 0 1px rgba(255, 255, 255, 0.10);
   scrollbar-width: thin;
-  scrollbar-color: hsl(0 0% 100% / 0.12) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
 }
 
 .cs-modal::-webkit-scrollbar {
@@ -2062,15 +2053,15 @@ html.lenis body {
   color: #ffffff;
   padding: 0.22rem 0.6rem;
   border-radius: 100px;
-  background: hsl(250 70% 60% / 0.14);
-  border: 1px solid hsl(250 70% 70% / 0.25);
+  background: color-mix(in srgb, var(--signal-start) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--signal-start) 25%, transparent);
   letter-spacing: 0.05em;
 }
 
 /* ── CTA BLOCK ────────────────────────────────────────────── */
 .cs-cta-block {
-  background: linear-gradient(135deg, hsl(240 60% 18% / 0.65), hsl(270 50% 18% / 0.65));
-  border: 1px solid hsl(0 0% 100% / 0.09);
+  background: var(--bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 18px;
   padding: 1.75rem;
   text-align: center;
@@ -2304,10 +2295,10 @@ html.lenis body {
     /* ③ Inner ceiling catch */
     inset 0 5px 18px hsl(0 0% 100% / 0.10),
     /* ④ Inner depth shadow at bottom */
-    inset 0 -5px 14px hsl(240 30% 10% / 0.18),
+    inset 0 -5px 14px rgba(0, 0, 0, 0.18),
     /* ⑤ Outer lift shadow */
-    0 20px 60px hsl(0 0% 0% / 0.35),
-    0 6px 20px hsl(0 0% 0% / 0.20);
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    0 6px 20px rgba(0, 0, 0, 0.20);
 }
 
 /* Close × button — sits outside the circle at top-right */
@@ -2515,7 +2506,7 @@ html.lenis body {
     right: 0;
     z-index: 200;
     flex-direction: column;
-    background: hsl(240 14% 8% / 0.96);
+    background: rgba(15, 15, 15, 0.96);
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
     padding: 1.5rem 0 2rem;
@@ -3029,11 +3020,11 @@ html.lenis body {
 
   .mbn-item.active svg {
     transform: translateY(-2px) scale(1.08);
-    stroke: var(--accent, #7c6fe0);
+    stroke: var(--signal-start);
   }
 
   .mbn-item.active span {
-    color: var(--accent, #7c6fe0);
+    color: var(--signal-start);
     font-weight: 700;
   }
 
@@ -3057,4 +3048,168 @@ html.lenis body {
     width: 45px;
     height: 45px;
   }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   MICRO-DETAILING — premium human touches
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* Subtle inner glow on card hover — warm light seep */
+.service-card:hover,
+.project-card:hover {
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--signal-start) 3%, transparent) 0%,
+      transparent 60%),
+    var(--bg-surface);
+}
+
+/* Button press effect — tactile depth */
+.btn:active,
+.btn-primary:active,
+.btn-gradient:active,
+.service-explore-btn:active,
+.sd-cta-btn:active {
+  transform: scale(0.97) translateY(1px);
+  transition: transform 0.08s ease;
+}
+
+/* Smooth link underline draw on hover */
+.ghost-text-bg a,
+.contact-info a {
+  position: relative;
+  text-decoration: none;
+}
+
+.ghost-text-bg a::after,
+.contact-info a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--signal-start);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ghost-text-bg a:hover::after,
+.contact-info a:hover::after {
+  width: 100%;
+}
+
+/* Focus ring for accessibility */
+a:focus-visible,
+button:focus-visible,
+.service-explore-btn:focus-visible,
+.sd-cta-btn:focus-visible,
+.project-card:focus-visible {
+  outline: 2px solid var(--signal-start);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Section divider — subtle warm line */
+.services-section::before,
+.projects-section::before,
+.skills-section::before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--signal-start), transparent);
+  margin: 0 auto 3rem;
+  opacity: 0.5;
+}
+
+/* Hero gradient text shimmer */
+.hero-title {
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 0%,
+    var(--signal-start) 45%,
+    var(--signal-mid) 55%,
+    var(--text-primary) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Smooth stat number glow on scroll */
+.stat-box {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    15px 15px 30px rgb(25, 25, 25),
+    -15px -15px 30px rgb(60, 60, 60),
+    0 0 20px color-mix(in srgb, var(--signal-start) 10%, transparent);
+}
+
+/* Nav link subtle glow on active */
+.nav-links a.active {
+  color: var(--signal-start);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--signal-start) 30%, transparent);
+}
+
+/* Card tag hover micro-lift */
+.tag-row span {
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.tag-row span:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--signal-start) 20%, transparent);
+}
+
+/* Social icon hover warmth */
+.social-icon {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--signal-start) 20%, transparent);
+}
+
+/* Service drawer item hover warmth */
+.sd-item:hover {
+  background: color-mix(in srgb, var(--signal-start) 8%, transparent);
+  border-color: color-mix(in srgb, var(--signal-start) 20%, transparent);
+}
+
+/* Smooth scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--signal-start) 40%, transparent);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--signal-start) 60%, transparent);
+}
+
+/* Selection color */
+::selection {
+  background: color-mix(in srgb, var(--signal-start) 30%, transparent);
+  color: var(--text-primary);
 }

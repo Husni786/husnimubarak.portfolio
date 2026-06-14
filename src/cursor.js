@@ -14,7 +14,7 @@ export function initCursor() {
 
   let mouseX = -9999;
   let mouseY = -9999;
-  let cursorColor = '#667eea';
+  let cursorColor = '#c8956c';
   let cursorScale = 1;
 
   window.addEventListener('mousemove', e => {
@@ -51,12 +51,12 @@ export function initCursor() {
       if (el.closest(selector)) {
         if (color.startsWith('var(')) {
           const varName = color.match(/var\((--[^)]+)\)/)?.[1];
-          return varName ? getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || '#667eea' : '#667eea';
+          return varName ? getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || '#c8956c' : '#c8956c';
         }
         return color;
       }
     }
-    return '#667eea';
+    return '#c8956c';
   }
 
   // Listen for hover on interactive elements
@@ -71,7 +71,7 @@ export function initCursor() {
   document.addEventListener('mouseout', (e) => {
     const target = e.target.closest('a, button, .btn, .project-card, .service-card, .social-icon, .balloon-sphere, [data-project]');
     if (target) {
-      cursorColor = '#667eea';
+      cursorColor = '#c8956c';
       cursorScale = 1;
     }
   });
