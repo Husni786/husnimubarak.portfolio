@@ -1024,16 +1024,16 @@ html.lenis body {
 }
 
 /* Incremental sticky top — cards stack ON TOP as you scroll */
-.service-card:nth-child(1) { top: 80px; z-index: 5; }
-.service-card:nth-child(2) { top: 80px; z-index: 4; }
+.service-card:nth-child(1) { top: 80px; z-index: 1; }
+.service-card:nth-child(2) { top: 80px; z-index: 2; }
 .service-card:nth-child(3) { top: 80px; z-index: 3; }
-.service-card:nth-child(4) { top: 80px; z-index: 2; }
+.service-card:nth-child(4) { top: 80px; z-index: 4; }
 
 /* Scale down cards as they get stacked behind */
-.service-card:nth-child(1) { transform: scale(1); }
-.service-card:nth-child(2) { transform: scale(0.96); }
-.service-card:nth-child(3) { transform: scale(0.92); }
-.service-card:nth-child(4) { transform: scale(0.88); }
+.service-card:nth-child(1) { transform: scale(0.88); }
+.service-card:nth-child(2) { transform: scale(0.92); }
+.service-card:nth-child(3) { transform: scale(0.96); }
+.service-card:nth-child(4) { transform: scale(1); }
 
 /* Hover lift on any card */
 .service-card:hover {
@@ -1336,16 +1336,16 @@ html.lenis body {
 }
 
 /* Incremental sticky top — cards stack ON TOP as you scroll */
-.project-card:nth-child(1) { top: 80px; z-index: 5; }
-.project-card:nth-child(2) { top: 80px; z-index: 4; }
+.project-card:nth-child(1) { top: 80px; z-index: 1; }
+.project-card:nth-child(2) { top: 80px; z-index: 2; }
 .project-card:nth-child(3) { top: 80px; z-index: 3; }
-.project-card:nth-child(4) { top: 80px; z-index: 2; }
+.project-card:nth-child(4) { top: 80px; z-index: 4; }
 
 /* Scale down cards as they get stacked behind */
-.project-card:nth-child(1) { transform: scale(1); }
-.project-card:nth-child(2) { transform: scale(0.96); }
-.project-card:nth-child(3) { transform: scale(0.92); }
-.project-card:nth-child(4) { transform: scale(0.88); }
+.project-card:nth-child(1) { transform: scale(0.88); }
+.project-card:nth-child(2) { transform: scale(0.92); }
+.project-card:nth-child(3) { transform: scale(0.96); }
+.project-card:nth-child(4) { transform: scale(1); }
 
 /* Hover lift */
 .project-card:hover {
