@@ -996,7 +996,7 @@ html.lenis body {
   align-items: center;
   gap: 0;
   margin-top: 4rem;
-  padding: 20px 0;
+  padding: 20px 0 200px;
   position: relative;
 }
 
@@ -1008,36 +1008,39 @@ html.lenis body {
   overflow: hidden;
   width: 100%;
   max-width: 480px;
-  /* Neumorphic shadow */
+  margin-bottom: 1.5rem;
+  /* Neumorphic shadow — reduced opacity */
   box-shadow:
-    15px 15px 30px rgb(25, 25, 25),
-    -15px -15px 30px rgb(60, 60, 60);
+    10px 10px 20px rgba(25, 25, 25, 0.6),
+    -10px -10px 20px rgba(60, 60, 60, 0.35);
   transition:
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.5s ease;
   /* Center the card */
   margin-left: auto;
   margin-right: auto;
+  /* Glass reflection border */
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Incremental sticky top — cards stack on scroll */
+/* Incremental sticky top — cards stack ON TOP as you scroll */
 .service-card:nth-child(1) { top: 80px; z-index: 5; }
-.service-card:nth-child(2) { top: 95px; z-index: 4; }
-.service-card:nth-child(3) { top: 110px; z-index: 3; }
-.service-card:nth-child(4) { top: 125px; z-index: 2; }
+.service-card:nth-child(2) { top: 80px; z-index: 4; }
+.service-card:nth-child(3) { top: 80px; z-index: 3; }
+.service-card:nth-child(4) { top: 80px; z-index: 2; }
 
 /* Scale down cards as they get stacked behind */
 .service-card:nth-child(1) { transform: scale(1); }
-.service-card:nth-child(2) { transform: scale(0.97); }
-.service-card:nth-child(3) { transform: scale(0.94); }
-.service-card:nth-child(4) { transform: scale(0.91); }
+.service-card:nth-child(2) { transform: scale(0.96); }
+.service-card:nth-child(3) { transform: scale(0.92); }
+.service-card:nth-child(4) { transform: scale(0.88); }
 
 /* Hover lift on any card */
 .service-card:hover {
   transform: scale(1.02) translateY(-4px);
   box-shadow:
-    20px 20px 40px rgb(20, 20, 20),
-    -20px -20px 40px rgb(65, 65, 65),
+    12px 12px 24px rgba(20, 20, 20, 0.5),
+    -12px -12px 24px rgba(65, 65, 65, 0.3),
     0 0 30px color-mix(in srgb, var(--signal-start) 10%, transparent);
   z-index: 10 !important;
 }
@@ -1049,17 +1052,26 @@ html.lenis body {
   inset: 0;
   border-radius: 16px;
   border: 1px solid transparent;
-  background: linear-gradient(135deg, var(--signal-start), transparent 60%) border-box;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(255, 255, 255, 0.04) 30%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.06) 100%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: 0;
+  opacity: 0.5;
   transition: opacity 0.4s ease;
   pointer-events: none;
 }
 
 .service-card:hover::before {
-  opacity: 0.5;
+  opacity: 1;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.18) 0%, 
+    rgba(255, 255, 255, 0.06) 30%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.08) 100%) border-box;
 }
 
 .service-card:hover:not(.is-open) {
@@ -1259,7 +1271,7 @@ html.lenis body {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 2rem 200px;
   position: relative;
 }
 
@@ -1307,30 +1319,40 @@ html.lenis body {
   flex-direction: column;
   gap: 0.75rem;
   overflow: hidden;
+  margin-bottom: 2rem;
 
   /* Solid surface for neumorphic */
   background: var(--bg-surface);
 
-  /* Neumorphic shadow */
+  /* Neumorphic shadow — reduced opacity */
   box-shadow:
-    15px 15px 30px rgb(25, 25, 25),
-    -15px -15px 30px rgb(60, 60, 60);
+    10px 10px 20px rgba(25, 25, 25, 0.6),
+    -10px -10px 20px rgba(60, 60, 60, 0.35);
 
   transition: box-shadow 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Glass reflection border */
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Incremental sticky top — cards stack on scroll */
-.project-card:nth-child(1) { top: 80px; z-index: 5; transform: scale(1); }
-.project-card:nth-child(2) { top: 100px; z-index: 4; transform: scale(0.97); }
-.project-card:nth-child(3) { top: 120px; z-index: 3; transform: scale(0.94); }
-.project-card:nth-child(4) { top: 140px; z-index: 2; transform: scale(0.91); }
+/* Incremental sticky top — cards stack ON TOP as you scroll */
+.project-card:nth-child(1) { top: 80px; z-index: 5; }
+.project-card:nth-child(2) { top: 80px; z-index: 4; }
+.project-card:nth-child(3) { top: 80px; z-index: 3; }
+.project-card:nth-child(4) { top: 80px; z-index: 2; }
+
+/* Scale down cards as they get stacked behind */
+.project-card:nth-child(1) { transform: scale(1); }
+.project-card:nth-child(2) { transform: scale(0.96); }
+.project-card:nth-child(3) { transform: scale(0.92); }
+.project-card:nth-child(4) { transform: scale(0.88); }
 
 /* Hover lift */
 .project-card:hover {
   transform: scale(1.02) translateY(-4px);
   box-shadow:
-    20px 20px 40px rgb(20, 20, 20),
-    -20px -20px 40px rgb(65, 65, 65),
+    12px 12px 24px rgba(20, 20, 20, 0.5),
+    -12px -12px 24px rgba(65, 65, 65, 0.3),
     0 0 40px color-mix(in srgb, var(--signal-start) 12%, transparent);
   z-index: 10 !important;
 }
@@ -1362,16 +1384,23 @@ html.lenis body {
   position: absolute;
   inset: -1px;
   border-radius: 21px;
-  background: linear-gradient(
-    var(--border-angle, 0deg),
-    var(--signal-start),
-    var(--signal-mid),
-    var(--signal-end),
-    var(--signal-start)
-  );
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.05) 30%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.08) 100%);
   z-index: -1;
-  opacity: 0;
+  opacity: 0.4;
   transition: opacity 0.4s ease;
+}
+
+.project-card:hover::after {
+  opacity: 1;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.08) 30%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.1) 100%);
 }
 
 @keyframes borderRotate {
@@ -1402,9 +1431,9 @@ html.lenis body {
   width: 100%;
   max-width: 600px;
   box-shadow:
-    15px 15px 30px rgb(25, 25, 25),
-    -15px -15px 30px rgb(60, 60, 60),
-    0 0 24px color-mix(in srgb, var(--signal-start) 15%, transparent);
+    10px 10px 20px rgba(25, 25, 25, 0.6),
+    -10px -10px 20px rgba(60, 60, 60, 0.35),
+    0 0 20px color-mix(in srgb, var(--signal-start) 12%, transparent);
 }
 
 /* ── CARD TEXT — light on dark ─────────────────────────── */
@@ -3091,8 +3120,8 @@ button:focus-visible,
 .stat-box:hover {
   transform: translateY(-3px);
   box-shadow:
-    15px 15px 30px rgb(25, 25, 25),
-    -15px -15px 30px rgb(60, 60, 60),
+    10px 10px 20px rgba(25, 25, 25, 0.6),
+    -10px -10px 20px rgba(60, 60, 60, 0.35),
     0 0 20px color-mix(in srgb, var(--signal-start) 10%, transparent);
 }
 
